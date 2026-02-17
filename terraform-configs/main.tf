@@ -1,6 +1,6 @@
 terraform{
     required_providers {
-         minikube = {
+        minikube = {
             source = "scott-the-programmer/minikube"
             version = "0.6.0"
         }
@@ -8,7 +8,8 @@ terraform{
 }
 
 provider "minikube" {
-    kubernetes_version = "v1.35.0"
+    kubernetes_version = "1.35.0"
+    main
 }
 
 resource "minikube_cluster" "minikube_docker" {
