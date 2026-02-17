@@ -1,21 +1,18 @@
-terraform{
+terraform {
     required_providers {
-        minikube = {
-            source = "scott-the-programmer/minikube"
-            version = "0.4.2"
+        kubernetes = {
+            source = "hashicorp/kubernetes"
         }
     }
 }
 
-provider "minikube" {
-    kubernetes_version = "1.35.0"
-}
+resource "null_resource" "minikube_start" {
+    provisioner "local-exec" {
+        command = "minikube start --driver=docker --cpus=4 --memory=4096mb --profile=complete-devops-project"
+    }
 
-resource "minikube_cluster" "minikube_docker" {
-    driver = "docker"
-    cluster_name = "complete-devops-project"
-    addons = [
-        "default-storageclass",
-        "storage-provisioner"
-    ]
+    provisioner "local-exec" {
+        when    = destroy
+        command = "minikube delete --profile=complete-devops-project"
+    }
 }
