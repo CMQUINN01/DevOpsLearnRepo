@@ -9,6 +9,7 @@ terraform{
 
 provider "minikube" {
     kubernetes_version = "1.35.0"
+    main
 }
 
 resource "minikube_cluster" "minikube_docker" {
